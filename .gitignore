@@ -1,0 +1,42 @@
+# Logs and sessions
+history.jsonl
+.caveman-mode-log.jsonl
+*.log
+
+# Cache
+cache/
+file-history/
+paste-cache/
+
+# Runtime state
+daemon/
+daemon.lock
+daemon.log
+daemon.status.json
+.last-cleanup
+
+# IDE/Editor
+ide/
+
+# Projects metadata
+projects/
+
+# Plugin cache (keep plugin markers, not cache)
+plugins/cache/
+plugins/.last_inuse_sweep
+
+# Backups and tmp
+backups/
+*.tmp
+.env.local
+
+# System
+.DS_Store
+*.swp
+*.swo
+
+# Chrome extensions
+chrome/
+
+# Job state
+jobs/

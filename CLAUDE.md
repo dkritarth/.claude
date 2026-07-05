@@ -32,7 +32,8 @@ Restart Claude Code to load settings and skills.
 ├── skills/
 │   ├── academic-humanizer/    # Improve academic writing clarity
 │   ├── markitdown-converter/  # PDF/Word/Excel to markdown
-│   └── anthropics-skills/     # Submodule: official Anthropic skills
+│   ├── anthropics-skills/     # Submodule: official Anthropic skills
+│   └── mattpocock-skills/     # Submodule: Matt Pocock's skills collection
 ├── agents/                    # Custom agent definitions (if any)
 ├── .gitignore                 # Excludes cache, logs, sessions
 └── .gitmodules                # Submodule configuration
@@ -73,12 +74,20 @@ Restart Claude Code. Skill loads automatically as `/my-skill`.
 
 Edit `settings.json` directly or use Claude Code's `/config` command. Changes take effect on restart.
 
-### Update Anthropic skills submodule
+### Update submodules
 
+Update all submodules (Anthropic and Matt Pocock skills):
 ```bash
 git submodule update --remote
-git add .gitmodules skills/anthropics-skills/
-git commit -m "Update anthropic skills"
+git add .gitmodules skills/anthropics-skills/ skills/mattpocock-skills/
+git commit -m "Update skills submodules"
+```
+
+Or update a single submodule:
+```bash
+cd skills/anthropics-skills && git pull origin main && cd ../..
+# or
+cd skills/mattpocock-skills && git pull origin main && cd ../..
 ```
 
 ### Test a skill before committing
@@ -90,6 +99,7 @@ Use the skill in a Claude Code session. Verify it works as expected, then commit
 - **academic-humanizer** — Polish academic writing (papers, proposals) while preserving citations and evidence
 - **markitdown-converter** — Convert PDFs, Word docs, Excel, PowerPoint, HTML to markdown
 - **anthropics-skills/** — Official Anthropic skills (pdf, pptx, xlsx, docx, skill-creator, and 13+ more)
+- **mattpocock-skills/** — Matt Pocock's community skills collection (TypeScript, debugging, testing utilities, and more)
 
 See README.md for full skill details and usage.
 
@@ -105,7 +115,11 @@ Custom plugins (caveman, agent-skills) are configured in settings.json's `enable
 SessionStart hook activates caveman mode on every session (writing `.caveman-mode-active` file). Supports different intensity levels: lite, full, ultra.
 
 ### Submodules
-The `anthropics-skills/` directory is a git submodule pointing to https://github.com/anthropics/skills. Update independently with `git submodule update --remote`.
+Two git submodules provide external skill collections:
+- **anthropics-skills/** — https://github.com/anthropics/skills
+- **mattpocock-skills/** — https://github.com/mattpocock/skills
+
+Update all submodules with `git submodule update --remote` or update individually with `cd skills/<submodule> && git pull origin main`.
 
 ## What's Git-Ignored
 

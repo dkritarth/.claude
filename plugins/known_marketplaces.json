@@ -1,0 +1,18 @@
+{
+  "caveman": {
+    "source": {
+      "source": "github",
+      "repo": "JuliusBrussee/caveman"
+    },
+    "installLocation": "/Users/kritarth/.claude/plugins/marketplaces/caveman",
+    "lastUpdated": "2026-07-04T08:05:23.563Z"
+  },
+  "anthropic-agent-skills": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/skills"
+    },
+    "installLocation": "/Users/kritarth/.claude/plugins/marketplaces/anthropic-agent-skills",
+    "lastUpdated": "2026-07-05T08:52:08.320Z"
+  }
+}

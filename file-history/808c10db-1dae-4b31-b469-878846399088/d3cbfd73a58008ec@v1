@@ -1,0 +1,26 @@
+{
+  "model": "haiku",
+  "enabledPlugins": {
+    "caveman@caveman": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    },
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
+    }
+  },
+  "theme": "dark",
+  "statusLine": {
+    "type": "command",
+    "command": "bash /Users/kritarth/.claude/statusline-custom.sh",
+    "refreshInterval": 2
+  }
+}

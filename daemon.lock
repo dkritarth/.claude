@@ -1,0 +1,15 @@
+{
+  "pid": 661,
+  "version": "2.1.193",
+  "jsonPath": "/Users/kritarth/.claude/daemon.json",
+  "logPath": "/Users/kritarth/.claude/daemon.log",
+  "startedAt": 1783240891562,
+  "origin": "transient",
+  "spawnedBy": {
+    "label": "claude",
+    "cwd": "/Users/kritarth/code/sites/Kritarth-Dandapat.github.io",
+    "pid": 98746
+  },
+  "procStart": "Sun Jul  5 08:41:31 2026",
+  "launchTarget": "/opt/homebrew/Caskroom/claude-code/2.1.193/claude"
+}

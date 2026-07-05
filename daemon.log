@@ -1,0 +1,11 @@
+[2026-07-05T08:41:31.548Z] [supervisor] ─── daemon start ─── version=2.1.193 pid=661 origin=transient
+[2026-07-05T08:41:31.568Z] [supervisor] auth: scheduling proactive refresh in 27801s
+[2026-07-05T08:41:31.569Z] [supervisor] auth: scheduling proactive refresh in 27801s
+[2026-07-05T08:41:31.574Z] [supervisor] workers=0
+[2026-07-05T08:41:31.657Z] [bg] bg spare spawned host pid=675
+[2026-07-05T08:41:31.785Z] [bg] bg claimed-spare 4a925111 (spare)
+[2026-07-05T08:41:31.786Z] [bg] bg spawned f62e6c4d (slash)
+[2026-07-05T08:41:31.790Z] [bg] bg spare spawned host pid=687
+[2026-07-05T08:42:05.411Z] [bg] bg claimed-spare dcdb563b (spare)
+[2026-07-05T08:42:05.414Z] [bg] bg spare spawned host pid=1745
+[2026-07-05T08:42:05.740Z] [bg] bg settled 4a925111 (killed)

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -fsSL https://raw.githubusercontent.com/JuliusBrussee/caveman/main/src/tools/caveman-init.js)",
+      "Bash(node - --dry-run)",
+      "Bash(node -)"
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# Colors
+GREEN='\033[32m'
+YELLOW='\033[33m'
+RED='\033[31m'
+RESET='\033[0m'
+
+# Get model from settings or env
+model="${CLAUDE_CODE_MODEL:-haiku}"
+case "$model" in
+  haiku) model_display="H" ;;
+  sonnet) model_display="S" ;;
+  opus) model_display="O" ;;
+  fable) model_display="F" ;;
+  *) model_display="${model:0:1}" ;;
+esac
+
+# Extract JSON from stdin
+context_pct="?"
+context_pct_num=0
+caveman_status="off"
+permission_mode="?"
+
+if [ ! -t 0 ]; then
+  input=$(cat 2>/dev/null)
+
+  # Extract context usage % (try both possible field names)
+  context_pct=$(echo "$input" | jq -r '.context_window.used_percentage // .context_usage_percent // "?"' 2>/dev/null) || context_pct="?"
+
+  # Extract caveman mode
+  caveman_status=$(echo "$input" | jq -r '.caveman_mode // empty' 2>/dev/null)
+  if [ -z "$caveman_status" ]; then
+    caveman_status="${CAVEMAN_MODE:-off}"
+  fi
+
+  # Extract permission mode
+  permission_mode=$(echo "$input" | jq -r '.permission_mode // "?"' 2>/dev/null) || permission_mode="?"
+
+  # Get numeric value for color coding
+  if [ "$context_pct" != "?" ]; then
+    context_pct_num=$(echo "$context_pct" | cut -d'.' -f1)
+  fi
+fi
+
+# Color context % based on usage
+if [ "$context_pct" = "?" ]; then
+  context_colored="${context_pct}%"
+elif [ "$context_pct_num" -ge 80 ]; then
+  context_colored="${RED}${context_pct}%${RESET}"
+elif [ "$context_pct_num" -ge 60 ]; then
+  context_colored="${YELLOW}${context_pct}%${RESET}"
+else
+  context_colored="${GREEN}${context_pct}%${RESET}"
+fi
+
+# Color caveman status
+case "$caveman_status" in
+  off) caveman_colored="${RESET}off${RESET}" ;;
+  lite) caveman_colored="${YELLOW}lite${RESET}" ;;
+  full) caveman_colored="${GREEN}full${RESET}" ;;
+  ultra) caveman_colored="${RED}ultra${RESET}" ;;
+  *) caveman_colored="${caveman_status}" ;;
+esac
+
+# Shorten permission mode display
+case "$permission_mode" in
+  auto) perm_display="A" ;;
+  default) perm_display="D" ;;
+  plan) perm_display="P" ;;
+  acceptEdits) perm_display="E" ;;
+  dontAsk) perm_display="!" ;;
+  *) perm_display="${permission_mode:0:1}" ;;
+esac
+
+# Color permission mode
+if [ "$perm_display" = "?" ]; then
+  perm_colored="${perm_display}"
+else
+  perm_colored="${GREEN}${perm_display}${RESET}"
+fi
+
+# Format: [Model] Mem:NN% Caveman:X Perm:X
+echo -e "[${model_display}] Mem:${context_colored} Caveman:${caveman_colored} Perm:${perm_colored}"

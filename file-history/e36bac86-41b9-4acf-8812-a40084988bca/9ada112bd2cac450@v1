@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# Custom statusline: model + context usage % + session limit + CAVEMAN + permission mode
+
+# Get model from settings or env
+model="${CLAUDE_CODE_MODEL:-haiku}"
+case "$model" in
+  haiku) model_display="H" ;;
+  sonnet) model_display="S" ;;
+  opus) model_display="O" ;;
+  fable) model_display="F" ;;
+  *) model_display="${model:0:1}" ;;
+esac
+
+# Extract JSON from stdin
+context_pct="?"
+session_limit="?"
+caveman_status="?"
+permission_mode="?"
+
+if [ ! -t 0 ]; then
+  input=$(cat 2>/dev/null)
+
+  # Extract context usage %
+  context_pct=$(echo "$input" | jq -r '.context_usage_percent // "?"' 2>/dev/null) || context_pct="?"
+
+  # Extract session limit (tokens remaining)
+  session_limit=$(echo "$input" | jq -r '.tokens_remaining // "?"' 2>/dev/null) || session_limit="?"
+
+  # Extract CAVEMAN status (from harness JSON, env, or marker file)
+  caveman_status=$(echo "$input" | jq -r '.caveman_mode // empty' 2>/dev/null)
+  if [ -z "$caveman_status" ]; then
+    caveman_status="${CAVEMAN_MODE:-off}"
+  fi
+  if [ "$caveman_status" = "off" ] && [ -f ~/.claude/.caveman-mode-active ]; then
+    caveman_status=$(cat ~/.claude/.caveman-mode-active 2>/dev/null)
+  fi
+
+  # Extract permission mode
+  permission_mode=$(echo "$input" | jq -r '.permission_mode // "?"' 2>/dev/null) || permission_mode="?"
+fi
+
+# Shorten permission mode display
+case "$permission_mode" in
+  auto) perm_display="A" ;;
+  default) perm_display="D" ;;
+  plan) perm_display="P" ;;
+  acceptEdits) perm_display="E" ;;
+  dontAsk) perm_display="!" ;;
+  *) perm_display="${permission_mode:0:1}" ;;
+esac
+
+# Format: [Model] Mem:NN% Limit:NN Cave:X Perm:X
+echo "[${model_display}] Mem:${context_pct}% Limit:${session_limit} Cave:${caveman_status} Perm:${perm_display}"

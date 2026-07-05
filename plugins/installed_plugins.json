@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "plugins": {
+    "caveman@caveman": [
+      {
+        "scope": "user",
+        "installPath": "/Users/kritarth/.claude/plugins/cache/caveman/caveman/0d95a81d35a9",
+        "version": "0d95a81d35a9",
+        "installedAt": "2026-07-04T08:05:23.836Z",
+        "lastUpdated": "2026-07-04T08:05:23.836Z",
+        "gitCommitSha": "0d95a81d35a9f2d123a5e9430d1cfc43d55f1bb0"
+      }
+    ]
+  }
+}

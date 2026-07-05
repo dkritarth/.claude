@@ -1,0 +1,7 @@
+\subrole{Equivariant MLIPs, Alchemical Extensions, and Universal Atom Models}{December 2025 -- Present}
+\begin{cvlist}
+  \item Extended a dual-topology \textbf{alchemical} graph construction -- originally built for \textbf{MACE} -- to two additional equivariant \textbf{MLIP} architectures (fairchem \textbf{eSEN}, Meta \textbf{UMA}), enabling differentiable composition interpolation over disordered structures without retraining.
+  \item Designed a $\lambda$-weighted message-passing and expert-routing scheme for \textbf{UMA}'s \textbf{Mixture-of-Linear-Experts} backbone, correcting double-counting in composition-dependent expert gating and adding an endpoint-collapse mechanism for exact pure-composition limits.
+  \item Discovered and fixed a reference-energy bug causing non-physical $\sim$15\,eV energy discontinuities near pure compositions -- invisible to force-based relaxation but critical for free-energy calculations -- and added regression tests to prevent recurrence.
+  \item Built a 12+ test automated verification suite (energy/force/stress/gradient agreement to $\sim 10^{-7}$\,eV) plus benchmark figures and formula-level documentation cross-validating \textbf{MACE}, \textbf{eSEN}, and \textbf{UMA}.
+\end{cvlist}

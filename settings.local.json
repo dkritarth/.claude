@@ -3,7 +3,10 @@
     "allow": [
       "Bash(curl -fsSL https://raw.githubusercontent.com/JuliusBrussee/caveman/main/src/tools/caveman-init.js)",
       "Bash(node - --dry-run)",
-      "Bash(node -)"
+      "Bash(node -)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(ln -s research-paper-writing-skills/research-paper-writing research-paper-writing)"
     ]
   }
 }

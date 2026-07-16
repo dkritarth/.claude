@@ -40,3 +40,17 @@ chrome/
 
 # Job state
 jobs/
+
+# Local runtime / personal data (not meant for the repo)
+plans/
+sessions/
+tasks/
+shell-snapshots/
+usage/
+mcp-needs-auth-cache.json
+stats-cache.json
+plugins/plugin-catalog-cache.json
+.caveman-active
+.caveman-mode-active
+.caveman-statusline-suffix
+.caveman-history.jsonl

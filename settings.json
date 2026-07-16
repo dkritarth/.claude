@@ -1,5 +1,4 @@
 {
-  "model": "haiku",
   "hooks": {
     "SessionStart": [
       {
@@ -12,6 +11,7 @@
       }
     ]
   },
+  "enableWorkflows": true,
   "statusLine": {
     "type": "command",
     "command": "bash /Users/kritarth/.claude/statusline-custom.sh",
@@ -41,5 +41,7 @@
       }
     }
   },
+  "effortLevel": "medium",
+  "skipDangerousModePermissionPrompt": true,
   "theme": "dark"
 }

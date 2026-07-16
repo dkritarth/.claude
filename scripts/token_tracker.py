@@ -143,6 +143,24 @@ def scan():
     state = load_state()
     summary = load_summary()
     new_rows = []
+    # Claude Code writes one transcript line per streamed content block, but
+    # each line repeats the SAME cumulative usage for that API call (keyed by
+    # message.id). Without this dedup, cost/tokens get counted once per
+    # content block instead of once per actual API call -- can inflate
+    # totals by several times on tool-heavy sessions. Must be seeded from
+    # already-recorded rows, not just this run's new lines: a message's
+    # duplicate content-block lines can straddle two separate incremental
+    # scan calls if the transcript file was still being written mid-scan.
+    seen_msg_ids = set()
+    if USAGE_LOG.exists():
+        with USAGE_LOG.open() as f:
+            for line in f:
+                try:
+                    mid = json.loads(line).get("message_id")
+                except json.JSONDecodeError:
+                    continue
+                if mid:
+                    seen_msg_ids.add(mid)
 
     if not PROJECTS_DIR.exists():
         print("no projects dir found:", PROJECTS_DIR)
@@ -175,6 +193,11 @@ def scan():
                 model = msg.get("model")
                 if not usage or not model:
                     continue
+                msg_id = msg.get("id")
+                if msg_id:
+                    if msg_id in seen_msg_ids:
+                        continue
+                    seen_msg_ids.add(msg_id)
                 ts = rec.get("timestamp")
                 cost = cost_for_message(model, usage, ts)
                 if cost is None:
@@ -189,6 +212,7 @@ def scan():
                     "timestamp": ts,
                     "project": project,
                     "session_id": session_id,
+                    "message_id": msg_id,
                     "model": model,
                     "input_tokens": inp,
                     "output_tokens": out,
